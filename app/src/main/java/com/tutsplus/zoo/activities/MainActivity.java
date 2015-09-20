@@ -6,17 +6,26 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.squareup.otto.Subscribe;
 import com.tutsplus.zoo.R;
+import com.tutsplus.zoo.events.DrawerSectionItemClickedEvent;
+import com.tutsplus.zoo.fragments.GalleryFragment;
+import com.tutsplus.zoo.fragments.ZooMapFragment;
+import com.tutsplus.zoo.utils.EventBus;
+import com.tutsplus.zoo.fragments.ExhibitsListFragment;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
+    private String mCurrentFragmentTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,12 @@ public class MainActivity extends ActionBarActivity {
         };
 
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+        displayInitialFragment();
+    }
+
+    private void displayInitialFragment() {
+        getSupportFragmentManager().beginTransaction().replace( R.id.container, ExhibitsListFragment.getInstance() ).commit();
+        mCurrentFragmentTitle = "Exhibits";
     }
 
     @Override
@@ -86,5 +101,41 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        EventBus.getInstance().register(this);
+    }
+
+    @Override
+    protected void onStop(){
+        EventBus.getInstance().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe
+    public void onDrawSectionItemClickEvent(DrawerSectionItemClickedEvent event){
+        mDrawerLayout.closeDrawers();
+
+        if (event == null || TextUtils.isEmpty(event.section) || event.section.equalsIgnoreCase(mCurrentFragmentTitle)){
+            return;
+        }
+
+        Toast.makeText(MainActivity.this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
+
+
+        if( event.section.equalsIgnoreCase( "maps" ) ) {
+            getSupportFragmentManager().beginTransaction().replace( R.id.container, ZooMapFragment.getInstance() ).commit();
+        } else if( event.section.equalsIgnoreCase( "gallery" ) ) {
+            getSupportFragmentManager().beginTransaction().replace( R.id.container, GalleryFragment.getInstance() ).commit();
+        } else if( event.section.equalsIgnoreCase( "exhibits" ) ) {
+            getSupportFragmentManager().beginTransaction().replace( R.id.container, ExhibitsListFragment.getInstance() ).commit();
+        } else {
+            return;
+        }
+
+        mCurrentFragmentTitle = event.section;
     }
 }
