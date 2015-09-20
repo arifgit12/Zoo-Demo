@@ -1,4 +1,4 @@
-package com.tutsplus.zoo;
+package com.tutsplus.zoo.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.tutsplus.zoo.adapters.DrawerNavigationListAdapter;
 
 /**
  * Created by dreamer on 20-09-2015.

@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.tutsplus.zoo.DrawerNavigationListView
+        <com.tutsplus.zoo.views.DrawerNavigationListView
             android:id="@+id/drawer"
             android:layout_width="240dp"
             android:layout_height="match_parent"
