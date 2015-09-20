@@ -1,5 +1,7 @@
 .gradle
+/.gradle/*
 /local.properties
+/.idea/*
 /.idea/copyright/*
 /.idea/libraries/*
 /.idea/dictionaries/*
@@ -8,3 +10,8 @@
 .DS_Store
 /build
 /captures
+tuts.iml
+/build/*
+/gradle/*
+/.gradle/*
+/tuts.iml
