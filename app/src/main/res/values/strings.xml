@@ -6,4 +6,6 @@
 
     <string name="drawer_opened">Select an Item</string>
     <string name="drawer_closed">Zoo</string>
+
+    <string name="exhibits_feed">https://gist.githubusercontent.com/arifgit12/ad185bf8c0e16703c720/raw/482257f024cb76fae866aa0ac481e1bbe410eed7</string>
 </resources>
