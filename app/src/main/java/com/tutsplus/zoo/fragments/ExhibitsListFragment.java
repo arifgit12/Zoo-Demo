@@ -6,6 +6,7 @@ import android.support.v4.app.ListFragment;
 import android.util.Log;
 
 import com.tutsplus.zoo.R;
+import com.tutsplus.zoo.adapters.ExhibitsAdapter;
 import com.tutsplus.zoo.models.Animal;
 import com.tutsplus.zoo.utils.AnimalApiInterface;
 
@@ -21,6 +22,8 @@ import retrofit.client.Response;
  */
 public class ExhibitsListFragment extends ListFragment {
 
+    private ExhibitsAdapter mAdapter;
+
     public static ExhibitsListFragment getInstance(){
         ExhibitsListFragment fragment = new ExhibitsListFragment();
         return fragment;
@@ -29,6 +32,9 @@ public class ExhibitsListFragment extends ListFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+
+        setListShown(false);
+        mAdapter = new ExhibitsAdapter(getActivity(), 0);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.exhibits_feed))
@@ -43,13 +49,17 @@ public class ExhibitsListFragment extends ListFragment {
                     return;
 
                 for( Animal animal : animals ) {
-                    Log.e( "Zoo", animal.getName() );
+                    mAdapter.add(animal);
                 }
+
+                mAdapter.notifyDataSetChanged();
+                setListAdapter(mAdapter);
+                setListShown(true);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e( "Zoo", "Retrofit error " + error.getMessage() );
+                Log.e( "Zoo", "Retrofit error: " + error.getMessage() );
             }
         });
 

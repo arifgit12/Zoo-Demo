@@ -11,6 +11,6 @@ import retrofit.http.GET;
  * Created by dreamer on 21-09-2015.
  */
 public interface AnimalApiInterface {
-    @GET("/Exhibits.json")
+    @GET("/exhibits.json")
     void getStreams( Callback<List<Animal>> callback);
 }
