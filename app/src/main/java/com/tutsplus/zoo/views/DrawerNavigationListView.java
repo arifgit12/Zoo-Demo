@@ -8,6 +8,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.tutsplus.zoo.adapters.DrawerNavigationListAdapter;
+import com.tutsplus.zoo.events.DrawerSectionItemClickedEvent;
+import com.tutsplus.zoo.utils.EventBus;
 
 /**
  * Created by dreamer on 20-09-2015.
@@ -36,6 +38,7 @@ public class DrawerNavigationListView extends ListView implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText( getContext(), "Section Clicked: " + parent.getItemAtPosition( position ), Toast.LENGTH_SHORT ).show();
+        //Toast.makeText( getContext(), "Section Clicked: " + parent.getItemAtPosition( position ), Toast.LENGTH_SHORT ).show();
+        EventBus.getInstance().post(new DrawerSectionItemClickedEvent( (String) parent.getItemAtPosition(position) ) );
     }
 }
