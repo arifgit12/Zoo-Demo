@@ -23,7 +23,7 @@ public class ExhibitDetailActivity extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
 
         Animal animal = getIntent().getExtras().getParcelable(EXTRA_ANIMAL);
 
