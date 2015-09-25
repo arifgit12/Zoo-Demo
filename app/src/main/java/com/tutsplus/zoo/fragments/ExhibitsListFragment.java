@@ -1,11 +1,15 @@
 package com.tutsplus.zoo.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 import com.tutsplus.zoo.R;
+import com.tutsplus.zoo.activities.ExhibitDetailActivity;
 import com.tutsplus.zoo.adapters.ExhibitsAdapter;
 import com.tutsplus.zoo.models.Animal;
 import com.tutsplus.zoo.utils.AnimalApiInterface;
@@ -63,5 +67,15 @@ public class ExhibitsListFragment extends ListFragment {
             }
         });
 
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id){
+        super.onListItemClick(l, v, position, id);
+
+        Intent intent = new Intent(getActivity(), ExhibitDetailActivity.class);
+        intent.putExtra(ExhibitDetailActivity.EXTRA_ANIMAL, mAdapter.getItem( position ));
+
+        startActivity(intent);
     }
 }
