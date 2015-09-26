@@ -1,5 +1,6 @@
 package com.tutsplus.zoo.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,9 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.tutsplus.zoo.R;
+import com.tutsplus.zoo.activities.GalleryDetailActivity;
 import com.tutsplus.zoo.adapters.GalleryImageAdapter;
 import com.tutsplus.zoo.models.GalleryImage;
 import com.tutsplus.zoo.utils.GalleryApiInterface;
@@ -25,7 +28,7 @@ import retrofit.client.Response;
 /**
  * Created by dreamer on 20-09-2015.
  */
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private GridView mGridView;
     private GalleryImageAdapter mAdapter;
@@ -45,6 +48,8 @@ public class GalleryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mGridView = (GridView) view.findViewById( R.id.grid );
+        mGridView.setOnItemClickListener(this);
+        mGridView.setDrawSelectorOnTop( true );
     }
 
     @Override
@@ -79,5 +84,14 @@ public class GalleryFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        GalleryImage image = (GalleryImage) parent.getItemAtPosition( position );
+        Intent intent = new Intent(getActivity(), GalleryDetailActivity.class);
+        intent.putExtra(GalleryDetailActivity.EXTRA_IMAGE, image.getImage() );
+        intent.putExtra( GalleryDetailActivity.EXTRA_CAPTION, image.getCaption() );
+        startActivity( intent );
     }
 }
