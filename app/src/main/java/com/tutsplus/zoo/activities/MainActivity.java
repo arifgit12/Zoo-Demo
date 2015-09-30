@@ -125,11 +125,11 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(MainActivity.this, "MainActivity: Section Clicked: " + event.section, Toast.LENGTH_SHORT).show();
 
 
-        if( event.section.equalsIgnoreCase( "maps" ) ) {
+        if( event.section.equalsIgnoreCase( getString( R.string.section_map ) ) ) {
             getSupportFragmentManager().beginTransaction().replace( R.id.container, ZooMapFragment.getInstance() ).commit();
-        } else if( event.section.equalsIgnoreCase( "gallery" ) ) {
+        } else if( event.section.equalsIgnoreCase( getString( R.string.section_gallery ) ) ) {
             getSupportFragmentManager().beginTransaction().replace( R.id.container, GalleryFragment.getInstance() ).commit();
-        } else if( event.section.equalsIgnoreCase( "exhibits" ) ) {
+        } else if( event.section.equalsIgnoreCase( getString( R.string.section_exhibits ) ) ) {
             getSupportFragmentManager().beginTransaction().replace( R.id.container, ExhibitsListFragment.getInstance() ).commit();
         } else {
             return;

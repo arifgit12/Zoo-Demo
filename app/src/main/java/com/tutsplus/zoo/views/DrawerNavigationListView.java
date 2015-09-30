@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.tutsplus.zoo.R;
 import com.tutsplus.zoo.adapters.DrawerNavigationListAdapter;
 import com.tutsplus.zoo.events.DrawerSectionItemClickedEvent;
 import com.tutsplus.zoo.utils.EventBus;
@@ -27,11 +28,11 @@ public class DrawerNavigationListView extends ListView implements AdapterView.On
         super(context, attrs, defStyleAttr);
 
         DrawerNavigationListAdapter adapter = new DrawerNavigationListAdapter( getContext(), 0 );
-        adapter.add( "Exhibits" );
-        adapter.add( "Gallery" );
-        adapter.add( "Maps" );
+        adapter.add( getContext().getString( R.string.section_exhibits ) );
+        adapter.add( getContext().getString( R.string.section_gallery ) );
+        adapter.add( getContext().getString( R.string.section_map ) );
 
-        setAdapter( adapter );
+        setAdapter(adapter );
 
         setOnItemClickListener(this);
     }

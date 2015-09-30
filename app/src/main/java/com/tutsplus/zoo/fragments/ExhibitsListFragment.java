@@ -37,8 +37,8 @@ public class ExhibitsListFragment extends ListFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        setListShown(false);
-        mAdapter = new ExhibitsAdapter(getActivity(), 0);
+        setListShown( false );
+        mAdapter = new ExhibitsAdapter( getActivity(), 0 );
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.exhibits_feed))
@@ -49,7 +49,7 @@ public class ExhibitsListFragment extends ListFragment {
         animalApiInterface.getStreams( new Callback<List<Animal>>() {
             @Override
             public void success(List<Animal> animals, Response response) {
-                if( animals == null || animals.isEmpty() )
+                if( animals == null || animals.isEmpty() || !isAdded() )
                     return;
 
                 for( Animal animal : animals ) {

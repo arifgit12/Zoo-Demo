@@ -11,4 +11,8 @@
     <string name="gallery_feed">https://gist.githubusercontent.com/arifgit12/7a995e9bb0d92b490a87/raw/562833af9687319e22057e8d0b4c9eaa4b959e29</string>
     <string name="pins_feed">https://gist.githubusercontent.com/arifgit12/63548f54db07a1ce15a4/raw/20782400ae4dd39da169df6316a1ec0b1dbcc629</string>
     <string name="pins_feed2">https://gist.githubusercontent.com/PaulTR/7b24b7659fe85e71dc17/raw/0fb06dc25b5f701a75a49539a02acfa9a43158bc</string>
+
+    <string name="section_exhibits">Exhibits</string>
+    <string name="section_gallery">Gallery</string>
+    <string name="section_map">Map</string>
 </resources>

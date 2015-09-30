@@ -60,12 +60,16 @@ public class ZooMapFragment extends SupportMapFragment {
 
         PinsApiInterface pinsApiInterface = adapter.create(PinsApiInterface.class);
         pinsApiInterface.getStreams(new Callback<List<Pin>>() {
+
             @Override
             public void success(List<Pin> pins, Response response) {
+                if( !isAdded() || pins == null || pins.isEmpty() )
+                    return;
+
                 for( Pin pin : pins ) {
                     MarkerOptions options = new MarkerOptions().position( new LatLng( pin.getLatitude(), pin.getLongitude() ) );
                     options.title( pin.getName() );
-                    options.icon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_GREEN ) );
+                    options.icon( BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN ) );
                     getMap().addMarker( options );
                 }
             }
