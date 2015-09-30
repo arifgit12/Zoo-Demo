@@ -5,7 +5,13 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.tutsplus.zoo.R;
 import com.tutsplus.zoo.models.Pin;
 import com.tutsplus.zoo.utils.PinsApiInterface;
@@ -31,6 +37,23 @@ public class ZooMapFragment extends SupportMapFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
+        CameraPosition position = CameraPosition.builder()
+                .target( new LatLng( 39.7500, -104.9500))
+                .zoom( 16f )
+                .bearing( 0.0f )
+                .tilt( 0.0f )
+                .build();
+        getMap().animateCamera(CameraUpdateFactory.newCameraPosition(position), null);
+        getMap().setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        getMap().setTrafficEnabled(true);
+
+        getMap().getUiSettings().setZoomControlsEnabled(true);
+
+        MarkerOptions options = new MarkerOptions().position(new LatLng( 39.7500, -104.9500 ));
+        options.title("Zoo");
+        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+        getMap().addMarker( options );
+
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(getString(R.string.pins_feed))
                 .build();
@@ -40,7 +63,10 @@ public class ZooMapFragment extends SupportMapFragment {
             @Override
             public void success(List<Pin> pins, Response response) {
                 for( Pin pin : pins ) {
-                    Log.e("Zoo", pin.getName());
+                    MarkerOptions options = new MarkerOptions().position( new LatLng( pin.getLatitude(), pin.getLongitude() ) );
+                    options.title( pin.getName() );
+                    options.icon( BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_GREEN ) );
+                    getMap().addMarker( options );
                 }
             }
 
